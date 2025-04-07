@@ -2,19 +2,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.bronti.API.services;
+package com.inventario.service;
 
 /**
  *
  * @author user
  */
 
-import com.bronti.API.models.VentaModel;
-import com.bronti.API.models.ProductoModel;
-import com.bronti.API.models.UsuarioModel;
-import com.bronti.API.repositories.IVentaRepository;;
-import com.bronti.API.repositories.ProductoRepository;
-import com.bronti.API.repositories.UsuarioRepository;
+import com.inventario.model.VentaModel;
+import com.inventario.model.ProductoModel;
+import com.inventario.model.UsuarioModel;
+import com.inventario.repository.IVentaRepository;
+import com.inventario.repository.ProductoRepository;
+import com.inventario.repository.UsuarioRepository;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Optional;
