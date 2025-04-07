@@ -2,14 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.bronti.API.services;
+package com.inventario.service;
 
 /**
  *
  * @author user
  */
-import com.bronti.API.models.UsuarioModel;
-import com.bronti.API.repositories.IUsuarioRepository;
+import com.inventario.model.UsuarioModel;
+import com.inventario.repository.IUsuarioRepository;
 import java.util.ArrayList;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
