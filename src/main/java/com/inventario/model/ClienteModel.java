@@ -8,10 +8,13 @@ package com.inventario.model;
  *
  * @author user
  */
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "proveedores")
+@Table(name = "clientes")
 public class ClienteModel {
     @Id
     @Column(name = "cedula_cliente", nullable = false)
