@@ -41,7 +41,7 @@ public class ProductoService {
         ProductoModel.setStock(request.getStock());
         ProductoModel.setStock_minimo(request.getStock_minimo());
         ProductoModel.setTipo_despacho(request.getTipo_despacho());
-        ProductoModel.setVenta(request.getVenta());
+        ProductoModel.setDetallesVenta(request.getDetallesVenta());
         IProductoRepository.save(ProductoModel);
         return ProductoModel;
     }

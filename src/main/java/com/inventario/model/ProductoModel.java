@@ -45,7 +45,7 @@ public class ProductoModel {
 
     @OneToMany(mappedBy = "producto")
     @JsonIgnore
-    private List<VentaModel> venta = new ArrayList<>();
+    private List<DetalleVentaModel> detallesVenta = new ArrayList<>();
 
     public int getId_producto() {
         return id_producto;
@@ -79,8 +79,8 @@ public class ProductoModel {
         return tipo_despacho;
     }
 
-    public List<VentaModel> getVenta() {
-        return venta;
+    public List<DetalleVentaModel> getDetallesVenta() {
+        return detallesVenta;
     }
 
     public void setId_producto(int id_producto) {
@@ -115,8 +115,8 @@ public class ProductoModel {
         this.tipo_despacho = tipo_despacho;
     }
 
-    public void setVenta(List<VentaModel> venta) {
-        this.venta = venta;
+    public void setDetallesVenta(List<DetalleVentaModel> detallesVenta) {
+        this.detallesVenta = detallesVenta;
     }
 
     
