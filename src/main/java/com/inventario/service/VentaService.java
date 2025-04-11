@@ -36,33 +36,26 @@ public class VentaService {
         return (ArrayList<VentaModel>) ventaRepository.findAll();
     }
 
-    public VentaModel saveUser(VentaModel venta) {
-        // Establecer fecha actual si no viene
-        if (venta.getFecha() == null) {
-            venta.setFecha(LocalDateTime.now());
+    public VentaModel saveUser(VentaModel movimientos) {
+        if (movimientos.getFecha() == null) {
+            movimientos.setFecha(LocalDateTime.now());
         }
-
-        // Buscar usuario
-        UsuarioModel usuario = userRepository.findById(venta.getUsuario().getCedula_usuario())
+    
+        UsuarioModel usuario = userRepository.findById(movimientos.getUsuario().getCedula_usuario())
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        venta.setUsuario(usuario);
-
-        // Guardar la venta sin detalles primero
-        VentaModel ventaGuardada = ventaRepository.save(venta);
-
-        // Asociar cada detalle con la venta y su producto correspondiente
-        List<DetalleVentaModel> detalles = venta.getDetalles();
-        for (DetalleVentaModel detalle : detalles) {
+    
+        movimientos.setUsuario(usuario);
+    
+        // Asignar los productos y vincular cada detalle con la venta
+        for (DetalleVentaModel detalle : movimientos.getDetalles()) {
             ProductoModel producto = productoRepository.findById(detalle.getProducto().getId_producto())
-                    .orElseThrow(() -> new RuntimeException("Producto no encontrado con ID: " + detalle.getProducto().getId_producto()));
+                    .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+    
             detalle.setProducto(producto);
-            detalle.setVenta(ventaGuardada);
+            detalle.setVenta(movimientos); // Aquí lo importante
         }
-
-        detalleVentaRepository.saveAll(detalles); // Guardar todos los detalles
-        ventaGuardada.setDetalles(detalles); // Asociar los detalles a la venta para la respuesta
-
-        return ventaGuardada;
+    
+        return ventaRepository.save(movimientos);
     }
 
     public Optional<VentaModel> getById(Long id) {

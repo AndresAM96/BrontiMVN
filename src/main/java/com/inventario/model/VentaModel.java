@@ -22,8 +22,8 @@ public class VentaModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_venta;
 
-    @Column(nullable = false)
-    private String nombre;
+    @Column(nullable = true)
+    private String nombre; // Referencia onombre corto de la venta
 
     @Column(nullable = false)
     private String tipo_factura;
