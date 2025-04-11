@@ -46,17 +46,30 @@ public class VentaService {
     
         movimientos.setUsuario(usuario);
     
-        // Asignar los productos y vincular cada detalle con la venta
+        // Asignar detalles (producto + venta)
+        List<DetalleVentaModel> detallesConVenta = new ArrayList<>();
+    
         for (DetalleVentaModel detalle : movimientos.getDetalles()) {
             ProductoModel producto = productoRepository.findById(detalle.getProducto().getId_producto())
                     .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
     
             detalle.setProducto(producto);
-            detalle.setVenta(movimientos); // Aquí lo importante
+            detalle.setVenta(movimientos); // Esto es clave
+            detallesConVenta.add(detalle);
         }
     
+        movimientos.setDetalles(detallesConVenta);
+
+        System.out.println("Detalles a guardar: " + movimientos.getDetalles().size());
+            for (DetalleVentaModel d : movimientos.getDetalles()) {
+                System.out.println("Producto ID: " + d.getProducto().getId_producto() +
+                    ", Cantidad: " + d.getCantidad() +
+                    ", Precio: " + d.getPrecio_unitario() +
+                    ", Venta asociada: " + (d.getVenta() != null));
+        }
+   
         return ventaRepository.save(movimientos);
-    }
+    }    
 
     public Optional<VentaModel> getById(Long id) {
         return ventaRepository.findById(id);
