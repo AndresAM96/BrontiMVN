@@ -12,7 +12,6 @@ import com.inventario.model.DetalleVentaModel;
 import com.inventario.model.ProductoModel;
 import com.inventario.model.UsuarioModel;
 import com.inventario.model.VentaModel;
-import com.inventario.repository.IDetalleVentaRepository;
 import com.inventario.repository.IVentaRepository;
 import com.inventario.repository.ProductoRepository;
 import com.inventario.repository.UsuarioRepository;
@@ -23,8 +22,6 @@ public class VentaService {
     @Autowired
     private IVentaRepository ventaRepository;
 
-    @Autowired
-    private IDetalleVentaRepository detalleVentaRepository;
 
     @Autowired
     private ProductoRepository productoRepository;
