@@ -36,14 +36,14 @@ public class VentaModel {
     @Column(nullable = false)
     private LocalDateTime fecha;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String descripcion;
 
     @Column(nullable = false)
     private String descuento;
 
     @ManyToOne
-    @JoinColumn(name = "cedula_usuario", nullable = false)
+    @JoinColumn(name = "cedula_usuario", nullable = true)
     private UsuarioModel usuario;
 
     @OneToMany(mappedBy = "venta", cascade = CascadeType.ALL, orphanRemoval = true)
