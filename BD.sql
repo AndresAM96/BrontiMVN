@@ -1,50 +1,69 @@
+DROP DATABASE IF EXISTS inventario;
 CREATE DATABASE inventario;
-Use inventario;
+USE inventario;
+
+-- Usuarios
 CREATE TABLE usuarios (
-    cedula_usuario INT PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
-    contrasena VARCHAR(45) NOT NULL,
-    rol VARCHAR(10) NOT NULL
+  cedula_usuario INT PRIMARY KEY,
+  nombre VARCHAR(255) NOT NULL,
+  contrasena VARCHAR(255) NOT NULL,
+  rol VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE proveedores (
-    cedula_proveedor INT PRIMARY KEY,
-    nombre_proveedor VARCHAR(100) NOT NULL,
-    direccion_proveedor VARCHAR(100),
-    telefono_proveedor VARCHAR(20),
-    email_proveedor VARCHAR(100)
-);
-
+-- Productos
 CREATE TABLE productos (
-    id_producto INT PRIMARY KEY AUTO_INCREMENT,
-    nombre_producto VARCHAR(100) NOT NULL,
-    descripcion VARCHAR(500) NOT NULL,
-    precio_venta DECIMAL NOT NULL,
-    precio_compra DECIMAL NOT NULL,
-    stock INT NOT NULL,
-	stock_minimo INT NOT NULL,
-    tipo_despacho varchar(100) NOT NULL
+  id_producto INT PRIMARY KEY AUTO_INCREMENT,
+  nombre_producto VARCHAR(255) NOT NULL,
+  descripcion VARCHAR(255) NOT NULL,
+  precio_venta INT NOT NULL,
+  precio_compra INT NOT NULL,
+  stock INT NOT NULL,
+  stock_minimo INT NOT NULL,
+  tipo_despacho VARCHAR(255) NOT NULL
 );
 
+-- Proveedores
+CREATE TABLE proveedores (
+  id_proveedor INT PRIMARY KEY AUTO_INCREMENT,
+  nombre_proveedor VARCHAR(255) NOT NULL,
+  direccion VARCHAR(255) NOT NULL,
+  telefono VARCHAR(255) NOT NULL,
+  correo VARCHAR(255) NOT NULL
+);
+
+-- Clientes
 CREATE TABLE clientes (
-    cedula_cliente INT PRIMARY KEY,
-    nombre_cliente VARCHAR(100) NOT NULL,
-    direccion_cliente VARCHAR(100),
-    telefono_cliente VARCHAR(20),
-    email_cliente VARCHAR(100)
+  id_cliente INT PRIMARY KEY AUTO_INCREMENT,
+  nombre_cliente VARCHAR(255) NOT NULL,
+  cedula_cliente INT NOT NULL,
+  direccion VARCHAR(255) NOT NULL,
+  telefono VARCHAR(255) NOT NULL
 );
 
-
+-- Ventas
 CREATE TABLE ventas (
-    id_venta INT PRIMARY KEY AUTO_INCREMENT,
-    nombre VARCHAR(100) NOT NULL,
-    tipo_factura VARCHAR (30) NOT NULL,
-    forma_pago VARCHAR (30) NOT NULL,
-    fecha DATETIME NOT NULL,
-    cedula_vendedor INT NOT NULL,
-    cedula_cliente INT NOT NULL,
-    descripcion VARCHAR(500),
-    descuento VARCHAR(100),
-    FOREIGN KEY (cedula_cliente) REFERENCES clientes(cedula_cliente),
-    FOREIGN KEY (cedula_vendedor) REFERENCES usuarios(cedula_usuario)
+  id_venta INT PRIMARY KEY AUTO_INCREMENT,
+  nombre VARCHAR(255),
+  tipo_factura VARCHAR(255) NOT NULL,
+  forma_pago VARCHAR(255) NOT NULL,
+  fecha DATETIME NOT NULL,
+  descripcion VARCHAR(255) NOT NULL,
+  descuento VARCHAR(255) NOT NULL,
+  cedula_usuario INT,
+  CONSTRAINT FK_usuario FOREIGN KEY (cedula_usuario) REFERENCES usuarios (cedula_usuario) ON DELETE SET NULL
 );
+
+-- Detalle de Venta
+CREATE TABLE detalle_venta (
+  id_detalle INT PRIMARY KEY AUTO_INCREMENT,
+  cantidad INT NOT NULL,
+  precio_unitario DOUBLE NOT NULL,
+  id_producto INT NOT NULL,
+  id_venta INT NOT NULL,
+  CONSTRAINT FK_producto FOREIGN KEY (id_producto) REFERENCES productos (id_producto),
+  CONSTRAINT FK_venta FOREIGN KEY (id_venta) REFERENCES ventas (id_venta) ON DELETE CASCADE
+);
+
+-- Insertar superadministrador
+INSERT INTO usuarios (cedula_usuario, nombre, contrasena, rol) VALUES
+(1000000000, 'SuperAdmin', 'admin123', 'SuperAdmin');
